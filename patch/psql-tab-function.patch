@@ -1,0 +1,25 @@
+diff --git a/src/bin/psql/tab-complete.c b/src/bin/psql/tab-complete.c
+index 83b2b9c..19050dd 100644
+--- a/src/bin/psql/tab-complete.c
++++ b/src/bin/psql/tab-complete.c
+@@ -2255,6 +2255,20 @@ psql_completion(const char *text, int start, int end)
+ 			 Matches6("COPY", "BINARY", MatchAny, "FROM|TO", MatchAny, "CSV"))
+ 		COMPLETE_WITH_LIST5("HEADER", "QUOTE", "ESCAPE", "FORCE QUOTE",
+ 							"FORCE NOT NULL");
++     else if (Matches1("SELECT|\\select"))
++          COMPLETE_WITH_SCHEMA_QUERY(Query_for_list_of_functions, ""); 
++     else if (TailMatches2("SELECT|\\select", MatchAny))
++                 COMPLETE_WITH_CONST("(");
++     //else if (TailMatches3("SELECT|\\select", MatchAny, "(" ))
++     //            COMPLETE_WITH_CONST("\'");
++     //else if (TailMatches3("SELECT|\\select", MatchAny, "("))
++     //else if (TailMatches4("SELECT|\\select", MatchAny, "(", "\'"))
++     //{
++     //      COMPLETE_WITH_CONST("\'");
++     //      completion_charp = "";
++     //      matches = completion_matches(text, complete_from_files);
++     //}
++
+ 
+ 	/* CREATE ACCESS METHOD */
+ 	/* Complete "CREATE ACCESS METHOD <name>" */
